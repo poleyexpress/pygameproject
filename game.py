@@ -95,7 +95,6 @@ def tick(keys):
 
     # elif start is True and screen == 2:
     elif start is True:
-        ball_velocity = 3
         level = 0
         if len(walls) == 0:
             level += 1
@@ -122,27 +121,36 @@ def tick(keys):
                         walls.append(gamebox.from_image(i, j, file_loc))
                     elif j == 175:
                         walls.append(gamebox.from_image(i - 25, j, file_loc))
+        for i in range(50, 825, 50):
+            for j in range(150, 225, 25):
+                if j == 150 or j == 200:
+                    walls.append(gamebox.from_image(i, j, "Pitt Logo Resized.png"))
+                elif j == 175:
+                    walls.append(gamebox.from_image(i - 25, j, "Pitt Logo Resized.png"))
         if pygame.K_SPACE in keys:
             start_movement = True
 
         if start_movement:
+            xspeed = 5
+            yspeed = 5
             time = str(counter // 30)
             time_tot = gamebox.from_text(785, 15, time, 22, "orange")
             if pygame.K_RIGHT in keys:
                 platform.x += 5
             if pygame.K_LEFT in keys:
                 platform.x -= 5
-            ball.y += ball_velocity
 
-            if ball.bottom_touches(platform):
-                ball_velocity = -ball_velocity
-                ball.move_to_stop_overlapping(platform)
+            ball.move(xspeed, yspeed)
 
-            ball.y += ball_velocity
-            
+            if ball.touches(platform):
+                ball.move(xspeed, -yspeed)
+
             for k in walls:
                 if ball.touches(k):
                     walls.remove(k)
+                    yspeed = -yspeed
+                    ball.move(xspeed, yspeed)
+
                 camera.draw(k)
             for l in sides:
                 camera.draw(l)
