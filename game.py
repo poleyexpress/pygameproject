@@ -24,12 +24,13 @@ screen = 0
 counter = 0
 start_movement = False
 
-name = ""
-name = input("What is your name? ")
 camera.clear("black")
 name_text = gamebox.from_text(400, 200, "Enter your name in the run window.", 50, "blue")
 camera.draw(name_text)
 camera.display()
+name = ""
+name = input("What is your name? ")
+
 
 
 def tick(keys):
