@@ -105,7 +105,10 @@ def tick(keys):
         if start_movement:
             time = str(counter // 30)
             time_tot = gamebox.from_text(785, 15, time, 22, "orange")
-
+            if pygame.K_RIGHT in keys:
+                platform.x += 5
+            if pygame.K_LEFT in keys:
+                platform.x -= 5
             ball.y += 3
             
             for k in walls:
