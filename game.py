@@ -150,10 +150,10 @@ def tick(keys):
                     walls.remove(k)
                     yspeed = -yspeed
                     ball.move(xspeed, yspeed)
-
                 camera.draw(k)
-            for l in sides:
-                camera.draw(l)
+            for z in sides:
+                if ball.touches(z)
+                    xspeed = -xspeed
 
             camera.draw(time_tot)
             camera.draw(platform)
