@@ -94,12 +94,32 @@ def tick(keys):
 
     # elif start is True and screen == 2:
     elif start is True:
-        for i in range(50, 825, 50):
-            for j in range(150, 225, 25):
-                if j == 150 or j == 200:
-                    walls.append(gamebox.from_image(i, j, "Pitt Logo Resized.png"))
-                elif j == 175:
-                    walls.append(gamebox.from_image(i-25, j, "Pitt Logo Resized.png"))
+        level = 0
+        if len(walls) == 0:
+            level += 1
+        if level == 1:
+            file_loc = "Pitt Logo Resized.png"
+        if level == 2:
+            file_loc = "Florida State Logo Resized.png"
+        if level == 3:
+            file_loc = "Miami Logo Resized.png"
+        if level == 4:
+            file_loc = "Duke Logo Resized.png"
+        if level == 5:
+            file_loc = "Louisville Logo Resized.png"
+        if level == 6:
+            file_loc = "UNC Logo Resized.png"
+        if level == 7:
+            file_loc = "Georgia Tech Logo Resized.png"
+        if level == 8:
+            file_loc = "Virginia Tech Logo Resized.png"
+        if len(walls) == 0:
+            for i in range(50, 825, 50):
+                for j in range(150, 225, 25):
+                    if j == 150 or j == 200:
+                        walls.append(gamebox.from_image(i, j, file_loc))
+                    elif j == 175:
+                        walls.append(gamebox.from_image(i-25, j, file_loc))
 
         # Add conditions to pause game, such as ball velocity = 0.
         if pygame.K_SPACE in keys:
