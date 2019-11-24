@@ -18,12 +18,14 @@ screen = 0
 counter = 0
 start_movement = False
 
-name = ""
-name = input("What is your name? ")
 camera.clear("black")
 name_text = gamebox.from_text(400, 200, "Enter your name in the run window.", 50, "blue")
 camera.draw(name_text)
 camera.display()
+name = ""
+while name == "":
+    name = input("What is your name? ")
+
 
 
 def tick(keys):
@@ -93,7 +95,8 @@ def tick(keys):
 
     # elif start is True and screen == 2:
     elif start is True:
-           level = 0
+        ball_velocity = 3
+        level = 0
         if len(walls) == 0:
             level += 1
         if level == 1:
@@ -118,7 +121,7 @@ def tick(keys):
                     if j == 150 or j == 200:
                         walls.append(gamebox.from_image(i, j, file_loc))
                     elif j == 175:
-                        walls.append(gamebox.from_image(i-25, j, file_loc))
+                        walls.append(gamebox.from_image(i - 25, j, file_loc))
         for i in range(50, 825, 50):
             for j in range(150, 225, 25):
                 if j == 150 or j == 200:
@@ -135,7 +138,13 @@ def tick(keys):
                 platform.x += 5
             if pygame.K_LEFT in keys:
                 platform.x -= 5
-            ball.y += 3
+            ball.y += ball_velocity
+
+            if ball.bottom_touches(platform):
+                ball_velocity = -ball_velocity
+                ball.move_to_stop_overlapping(platform)
+
+            ball.y += ball_velocity
             
             for k in walls:
                 if ball.touches(k):
