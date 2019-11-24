@@ -122,12 +122,6 @@ def tick(keys):
                         walls.append(gamebox.from_image(i, j, file_loc))
                     elif j == 175:
                         walls.append(gamebox.from_image(i - 25, j, file_loc))
-        for i in range(50, 825, 50):
-            for j in range(150, 225, 25):
-                if j == 150 or j == 200:
-                    walls.append(gamebox.from_image(i, j, "Pitt Logo Resized.png"))
-                elif j == 175:
-                    walls.append(gamebox.from_image(i - 25, j, "Pitt Logo Resized.png"))
         if pygame.K_SPACE in keys:
             start_movement = True
 
