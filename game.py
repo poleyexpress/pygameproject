@@ -18,16 +18,17 @@ screen = 0
 counter = 0
 start_movement = False
 
-name = ""
-name = input("What is your name? ")
 camera.clear("black")
 name_text = gamebox.from_text(400, 200, "Enter your name in the run window.", 50, "blue")
 camera.draw(name_text)
 camera.display()
+name = ""
+name = input("What is your name? ")
+
 
 
 def tick(keys):
-    global start, screen, counter, start_movement
+    global start, screen, counter
     camera.clear("black")
     for l in sides:
         camera.draw(l)
@@ -93,21 +94,42 @@ def tick(keys):
 
     # elif start is True and screen == 2:
     elif start is True:
-        for i in range(50, 825, 50):
-            for j in range(150, 225, 25):
-                if j == 150 or j == 200:
-                    walls.append(gamebox.from_image(i, j, "Pitt Logo Resized.png"))
-                elif j == 175:
-                    walls.append(gamebox.from_image(i - 25, j, "Pitt Logo Resized.png"))
+        level = 0
+        if len(walls) == 0:
+            level += 1
+        if level == 1:
+            file_loc = "Pitt Logo Resized.png"
+        if level == 2:
+            file_loc = "Florida State Logo Resized.png"
+        if level == 3:
+            file_loc = "Miami Logo Resized.png"
+        if level == 4:
+            file_loc = "Duke Logo Resized.png"
+        if level == 5:
+            file_loc = "Louisville Logo Resized.png"
+        if level == 6:
+            file_loc = "UNC Logo Resized.png"
+        if level == 7:
+            file_loc = "Georgia Tech Logo Resized.png"
+        if level == 8:
+            file_loc = "Virginia Tech Logo Resized.png"
+        if len(walls) == 0:
+            for i in range(50, 825, 50):
+                for j in range(150, 225, 25):
+                    if j == 150 or j == 200:
+                        walls.append(gamebox.from_image(i, j, file_loc))
+                    elif j == 175:
+                        walls.append(gamebox.from_image(i-25, j, file_loc))
+
+        # Add conditions to pause game, such as ball velocity = 0.
         if pygame.K_SPACE in keys:
-            start_movement = True
-
-        if start_movement:
-            time = str(counter // 30)
+            time = str(counter//30)
             time_tot = gamebox.from_text(785, 15, time, 22, "orange")
-
+            if pygame.K_RIGHT in keys:
+                platform.x += 5
+            if pygame.K_LEFT in keys:
+                platform.x -= 5
             ball.y += 1
-            
             for k in walls:
                 if ball.touches(k):
                     walls.remove(k)
@@ -131,6 +153,5 @@ def tick(keys):
     # Could also keep a high score doc and make as a menu option
     # Could make level codes that could also be a menu option to access levels you had reached prior
     # Or could instead make a user ID that allows you to save progress
-
 tps = 30
 gamebox.timer_loop(tps, tick)
