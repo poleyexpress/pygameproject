@@ -29,7 +29,8 @@ name_text = gamebox.from_text(400, 200, "Enter your name in the run window.", 50
 camera.draw(name_text)
 camera.display()
 name = ""
-name = input("What is your name? ")
+while name == "":
+    name = input("What is your name? ")
 
 
 
