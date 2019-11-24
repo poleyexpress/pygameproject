@@ -6,12 +6,6 @@ import random
 
 camera = gamebox.Camera(800, 400)
 walls = []
-for i in range(50, 825, 50):
-    for j in range(150, 225, 25):
-        if j == 150 or j == 200:
-            walls.append(gamebox.from_image(i, j, "Pitt Logo Resized.png"))
-        elif j == 175:
-            walls.append(gamebox.from_image(i-25, j, "Pitt Logo Resized.png"))
 sides = [
     gamebox.from_color(0, 400, "blue", 50, 800),
     gamebox.from_color(400, 0, "blue", 800, 50),
@@ -29,8 +23,7 @@ name_text = gamebox.from_text(400, 200, "Enter your name in the run window.", 50
 camera.draw(name_text)
 camera.display()
 name = ""
-while name == "":
-    name = input("What is your name? ")
+name = input("What is your name? ")
 
 
 
@@ -101,6 +94,12 @@ def tick(keys):
 
     # elif start is True and screen == 2:
     elif start is True:
+        for i in range(50, 825, 50):
+            for j in range(150, 225, 25):
+                if j == 150 or j == 200:
+                    walls.append(gamebox.from_image(i, j, "Pitt Logo Resized.png"))
+                elif j == 175:
+                    walls.append(gamebox.from_image(i-25, j, "Pitt Logo Resized.png"))
 
         # Add conditions to pause game, such as ball velocity = 0.
         if pygame.K_SPACE in keys:
