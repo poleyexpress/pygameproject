@@ -106,7 +106,7 @@ def tick(keys):
             time = str(counter // 30)
             time_tot = gamebox.from_text(785, 15, time, 22, "orange")
 
-            ball.y += 1
+            ball.y += 3
             
             for k in walls:
                 if ball.touches(k):
